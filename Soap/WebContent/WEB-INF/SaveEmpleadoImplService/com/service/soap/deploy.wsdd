@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from SaveEmpleadoImplService WSDL service -->
+
+  <service name="SaveEmpleadoImpl" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://soap.service.com"/>
+      <parameter name="wsdlServiceElement" value="SaveEmpleadoImplService"/>
+      <parameter name="schemaQualified" value="http://util.service.com,http://soap.service.com"/>
+      <parameter name="wsdlServicePort" value="SaveEmpleadoImpl"/>
+      <parameter name="className" value="com.service.soap.SaveEmpleadoImpl"/>
+      <parameter name="wsdlPortType" value="SaveEmpleadoImpl"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://soap.service.com" xmlns:retNS="http://soap.service.com" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="addEmpleado" qname="operNS:addEmpleado" returnQName="retNS:addEmpleadoReturn" returnType="rtns:boolean" soapAction="">
+        <parameter xmlns:pns="http://soap.service.com" xmlns:tns="http://util.service.com" qname="pns:p" type="tns:Empleado"/>
+      </operation>
+      <parameter name="allowedMethods" value="addEmpleado"/>
+
+      <typeMapping xmlns:ns="http://util.service.com" qname="ns:Empleado" type="java:com.service.util.Empleado" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
